@@ -45,7 +45,7 @@ public class ProgramaGestor {
                     	//solicitamos nueva tarea por pantalla
                     	Tarea t = new Tarea();
                     	//se añade al final del ArrayList tareas
-                    	tareas = ProcesadorTareas.crearNuevaTarea(t);
+                    	tareas = ProcesadorTareas.crearNuevaTarea(tareas,t);
                          break;
                     case 2:
                        ProcesadorTareas.listarTareas(tareas);
@@ -53,6 +53,20 @@ public class ProgramaGestor {
                     case 3:
                         // solicitamos posicion de la tarea que se quiere borrar
                     	int p = 0;
+                    	boolean posExiste = false;
+                    	// el numero debe ser válido, debe estar entre 0 y
+                    	// tareas.size()-1
+                    	Scanner sp =new Scanner (System.in);
+                    	while (!posExiste) {
+                    		System.out.println("\rPosición a borrar: \r");
+                    		p = sp.nextInt();
+                    		if (p >=0 && p < tareas.size()) {
+                    			posExiste = true;
+                    			tareas = ProcesadorTareas.borrarTareaPorPosicion(tareas,p);
+                    		}else
+                    			posExiste = false;
+                    		
+                    	}
                     	tareas = ProcesadorTareas.borrarTareaPorPosicion(tareas, p);
                         break;
                     case 4:

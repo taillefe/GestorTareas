@@ -39,7 +39,7 @@ public class ProcesadorTareas {
 	
 	//se le pasa el valor de la nueva tarea y el ArrayList y 
 	//devuelve el ArrayList con la tarea añadida
-	public static ArrayList<Tarea> crearNuevaTarea(Tarea t){
+	public static ArrayList<Tarea> crearNuevaTarea(ArrayList<Tarea> tareas,Tarea t){
 		return null;
 		
 	}
@@ -60,8 +60,10 @@ public class ProcesadorTareas {
 	
 	//se le pasa el dato de la posicion de la tarea que se quiere borrar y el ArrayList
 	// y devuelve el ArrayList modificado
-	public static ArrayList<Tarea>  borrarTareaPorPosicion(ArrayList<Tarea> t,int posicion){
-		return null;
+	public static ArrayList<Tarea>  borrarTareaPorPosicion(ArrayList<Tarea> tareas,int posicion){
+		tareas.remove(posicion);
+		
+		return tareas;
 	}
 	
 	// se le pasa el ArrayList con los datos a guardar y la dirección del fichero
