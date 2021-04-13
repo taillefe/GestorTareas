@@ -69,11 +69,11 @@ public class GestionFicheros {
 	
 	} // leerfichero
 	
-	
-	public static void escribirFichero(String cadena, String dir, String arch) {
+	//escribe un String en un fichero del que se le pasa la dirección
+	public static void escribirFichero(String cadena, String path) {
 		FileWriter fw;
 		try {
-			String path=dir + arch;
+			
 			fw= new FileWriter(path);
 			fw.write (cadena);
 			fw.flush();
