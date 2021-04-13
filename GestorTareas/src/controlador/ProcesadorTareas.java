@@ -39,8 +39,8 @@ public class ProcesadorTareas {
 	
 	//se le pasa el valor de la nueva tarea y el ArrayList y 
 	//devuelve el ArrayList con la tarea añadida
-	public static ArrayList<Tarea> crearNuevaTarea(ArrayList<Tarea> tareas,Tarea t){
-		return null;
+	public static void crearNuevaTarea(ArrayList<Tarea> tareas,Tarea t){
+		tareas.add(t);
 		
 	}
 

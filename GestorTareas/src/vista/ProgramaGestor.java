@@ -43,30 +43,14 @@ public class ProgramaGestor {
                 switch (opcion) {
                     case 1:
                     	//solicitamos nueva tarea por pantalla
-                    	Tarea t = new Tarea();
-                    	//se añade al final del ArrayList tareas
-                    	tareas = ProcesadorTareas.crearNuevaTarea(tareas,t);
+                    	 entradaCrearNuevaTarea(tareas);
                          break;
                     case 2:
                        ProcesadorTareas.listarTareas(tareas);
                         break;
                     case 3:
                         // solicitamos posicion de la tarea que se quiere borrar
-                    	int p = 0;
-                    	boolean posExiste = false;
-                    	// el numero debe ser válido, debe estar entre 0 y
-                    	// tareas.size()-1
-                    	Scanner sp =new Scanner (System.in);
-                    	while (!posExiste) {
-                    		System.out.println("\rPosición a borrar: \r");
-                    		p = sp.nextInt();
-                    		if (p >0 && p <= tareas.size()) {
-                    			posExiste = true;
-                    			ProcesadorTareas.borrarTareaPorPosicion(tareas,p-1);
-                    		}else
-                    			posExiste = false;
-                    		
-                    	}
+                    	entradaBorrarTareaPorPosicion(tareas);
                     	
                         break;
                     case 4:
@@ -86,6 +70,38 @@ public class ProgramaGestor {
         }
  
     }
+	
+	public static void entradaBorrarTareaPorPosicion(ArrayList<Tarea> ltareas) {
+		  // solicitamos posicion de la tarea que se quiere borrar
+    	int p = 0;
+    	boolean posExiste = false;
+    	// el numero debe ser válido, debe estar entre 0 y
+    	// tareas.size()-1
+    	Scanner sp =new Scanner (System.in);
+    	while (!posExiste) {
+    		System.out.println("\rPosición a borrar: \r");
+    		p = sp.nextInt();
+    		if (p >0 && p <= ltareas.size()) {
+    			posExiste = true;
+    			ProcesadorTareas.borrarTareaPorPosicion(ltareas,p-1);
+    		}else
+    			posExiste = false;
+    		
+    	}
+	}
  
-
+	public static void entradaCrearNuevaTarea(ArrayList<Tarea> ltareas) {
+		 // solicitamos entrada por pantalla de la nueva tarea
+		// se admite cualquier tipo de caracter
+  	  	Scanner st =new Scanner (System.in);
+  	  	
+  		System.out.println("\rNueva Tarea: \r");
+  		
+  					
+  		Tarea t = new Tarea(st.nextLine());
+        //se añade al final del ArrayList tareas
+        ProcesadorTareas.crearNuevaTarea(ltareas,t);
+  			
+  		
+	}
 }
