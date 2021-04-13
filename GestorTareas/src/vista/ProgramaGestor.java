@@ -60,9 +60,9 @@ public class ProgramaGestor {
                     	while (!posExiste) {
                     		System.out.println("\rPosición a borrar: \r");
                     		p = sp.nextInt();
-                    		if (p >=0 && p < tareas.size()) {
+                    		if (p >0 && p <= tareas.size()) {
                     			posExiste = true;
-                    			tareas = ProcesadorTareas.borrarTareaPorPosicion(tareas,p-1);
+                    			ProcesadorTareas.borrarTareaPorPosicion(tareas,p-1);
                     		}else
                     			posExiste = false;
                     		
