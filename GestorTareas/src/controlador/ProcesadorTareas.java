@@ -69,12 +69,16 @@ public class ProcesadorTareas {
 	//la tarea que realiza es guardar los datos en el fichero
 	public static void guardarTareas(ArrayList<Tarea> tareas, String path) {
 		
-		String cadena = null;
+		String cadena = "";
 		//se recorre el ArrayList para obtener un String con los datos
 		// separados por ";"
 		for(Tarea t:tareas) {
 			cadena = cadena + t.getNombre() + ";" ;
 		}
+		
+		//antes de guardar los datos en el fichero hay que eliminar 
+		//el ultimo caracter ";" escrito
+		cadena = cadena.substring(0, cadena.length()-1);
 		
 		GestionFicheros.escribirFichero(cadena, path);
 	
