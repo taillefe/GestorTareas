@@ -62,7 +62,7 @@ public class ProcesadorTareas {
 	// y devuelve el ArrayList modificado
 	public static ArrayList<Tarea>  borrarTareaPorPosicion(ArrayList<Tarea> tareas,int posicion){
 		tareas.remove(posicion);
-		
+	
 		return tareas;
 	}
 	

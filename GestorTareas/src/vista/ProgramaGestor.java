@@ -62,12 +62,12 @@ public class ProgramaGestor {
                     		p = sp.nextInt();
                     		if (p >=0 && p < tareas.size()) {
                     			posExiste = true;
-                    			tareas = ProcesadorTareas.borrarTareaPorPosicion(tareas,p);
+                    			tareas = ProcesadorTareas.borrarTareaPorPosicion(tareas,p-1);
                     		}else
                     			posExiste = false;
                     		
                     	}
-                    	tareas = ProcesadorTareas.borrarTareaPorPosicion(tareas, p);
+                    	
                         break;
                     case 4:
                         // guarda las tareas del ArrayList en el fichero
