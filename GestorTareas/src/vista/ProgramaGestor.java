@@ -15,61 +15,87 @@ import java.util.Scanner;
 public class ProgramaGestor {
 
 	public static void main(String[] args) {
+		
+
 		//Ruta del fichero
 		String rutaFichero=".//Fichero//data.txt";
 		
 		ArrayList<Tarea> tareas = new ArrayList<Tarea>();
 		
+		//se cargan las tareas en el ArrayList
 		tareas = ProcesadorTareas.cargarTareas(rutaFichero);
-	 
+		
+		//se hace un listado de las tareas cargadas
+		ProcesadorTareas.listarTareas(tareas);
+		
+		//menu de la aplicación con las opciones
+		boolean salir = false;
+	   
+		
+		
         Scanner sn = new Scanner(System.in);
-        boolean salir = false;
-        int opcion; //opcion del usuario
- 
+       
         while (!salir) {
-        	System.out.println("\rGestor de Tareas\r");
+        	 int opcion = menu(); //opcion del usuario
+        	
  
-            System.out.println("1. Crear Nueva Tarea");
-            System.out.println("2. Listar Tareas");
-            System.out.println("3. Borrar Tarea por posición");
-            System.out.println("4. Guardar Tareas en el fichero");
-            System.out.println("5. Salir");
- 
-            try {
- 
-             //   System.out.println("Escoge una opción");
-                opcion = sn.nextInt();
  
                 switch (opcion) {
                     case 1:
-                    	//solicitamos nueva tarea por pantalla
+                    	//solicita nueva tarea por pantalla
                     	 entradaCrearNuevaTarea(tareas);
                          break;
                     case 2:
                        ProcesadorTareas.listarTareas(tareas);
                         break;
                     case 3:
-                        // solicitamos posicion de la tarea que se quiere borrar
+                        // solicita posicion de la tarea que se quiere borrar
                     	entradaBorrarTareaPorPosicion(tareas);
-                    	
-                        break;
+                    	break;
                     case 4:
                         // guarda las tareas del ArrayList en el fichero
                     	ProcesadorTareas.guardarTareas(tareas, rutaFichero);;
                         break;
-                    case 5:
+                    case 5: //salir
                         salir = true;
                         break;
                     default:
                         System.out.println("Solo números entre 1 y 5");
                 }
-            } catch (InputMismatchException e) {
-                System.out.println("Debes insertar un número");
-                sn.next();
-            }
+            
         }
  
     }
+	
+	
+	public static int menu() {
+	
+		int opcion = 0;
+	 	Scanner sn = new Scanner(System.in);
+	   
+	   
+	    System.out.println("\r===============================");
+		System.out.println("       GESTOR DE TAREAS");
+		 System.out.println("===============================");
+	 
+	            System.out.println	("1. Crear Nueva Tarea");
+	    System.out.println	("2. Listar Tareas");
+	    System.out.println	("3. Borrar Tarea por posición");
+	    System.out.println	("4. Guardar Tareas en el fichero");
+	    System.out.println	("5. Salir");
+	    System.out.println("===============================\r");
+	    try {
+	    	 
+	        //System.out.println("Escoge una opción");
+	          opcion = sn.nextInt();
+	          
+	    } catch (InputMismatchException e) {
+	        System.out.println("Debes insertar un número");
+	        sn.next();
+	    }
+		
+	    return opcion;
+	}
 	
 	public static void entradaBorrarTareaPorPosicion(ArrayList<Tarea> ltareas) {
 		  // solicitamos posicion de la tarea que se quiere borrar
