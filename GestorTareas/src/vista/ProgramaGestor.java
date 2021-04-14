@@ -17,6 +17,8 @@ public class ProgramaGestor {
 	public static void main(String[] args) {
 		
 
+		int posModificar;
+		int posBorrar;
 		//Ruta del fichero
 		String rutaFichero=".//Fichero//data.txt";
 		
@@ -30,15 +32,9 @@ public class ProgramaGestor {
 		
 		//menu de la aplicación con las opciones
 		boolean salir = false;
-	   
 		
-		
-        Scanner sn = new Scanner(System.in);
-       
         while (!salir) {
         	 int opcion = menu(); //opcion del usuario
-        	
- 
  
                 switch (opcion) {
                     case 1:
@@ -50,17 +46,26 @@ public class ProgramaGestor {
                         break;
                     case 3:
                         // solicita posicion de la tarea que se quiere borrar
-                    	entradaBorrarTareaPorPosicion(tareas);
+                    	// devuelve la posicion de la tarea en el ArrayList
+                    	posBorrar = solicitarPosicion(tareas);
+                    	ProcesadorTareas.borrarTareaPorPosicion(tareas,posBorrar);
                     	break;
                     case 4:
+                        // solicita posicion de la tarea que se quiere modificar
+                    	posModificar = solicitarPosicion(tareas);
+                    	//solicita entrada del nuevo texto para esa tarea
+                    	Tarea tarea = modificarTarea(posModificar);
+                    	ProcesadorTareas.modificarTareaPorPosicion(tareas,posModificar,tarea);
+                        break;
+                    case 5:
                         // guarda las tareas del ArrayList en el fichero
                     	ProcesadorTareas.guardarTareas(tareas, rutaFichero);;
                         break;
-                    case 5: //salir
+                    case 6: //salir
                         salir = true;
                         break;
                     default:
-                        System.out.println("Solo números entre 1 y 5");
+                        System.out.println("Solo números entre 1 y 6");
                 }
             
         }
@@ -76,13 +81,13 @@ public class ProgramaGestor {
 	   
 	    System.out.println("\r===============================");
 		System.out.println("       GESTOR DE TAREAS");
-		 System.out.println("===============================");
-	 
-	            System.out.println	("1. Crear Nueva Tarea");
+		System.out.println("===============================");
+	    System.out.println	("1. Crear Nueva Tarea");
 	    System.out.println	("2. Listar Tareas");
 	    System.out.println	("3. Borrar Tarea por posición");
-	    System.out.println	("4. Guardar Tareas en el fichero");
-	    System.out.println	("5. Salir");
+	    System.out.println	("4. Modificar Tarea por posición");
+	    System.out.println	("5. Guardar Tareas en el fichero");
+	    System.out.println	("6. Salir");
 	    System.out.println("===============================\r");
 	    try {
 	    	 
@@ -97,23 +102,26 @@ public class ProgramaGestor {
 	    return opcion;
 	}
 	
-	public static void entradaBorrarTareaPorPosicion(ArrayList<Tarea> ltareas) {
+	//solicita posicion de la tarea y devuelve el numero del indice de la tarea
+	// en el ArrayList de Tareas
+	public static int solicitarPosicion(ArrayList<Tarea> ltareas) {
 		  // solicitamos posicion de la tarea que se quiere borrar
     	int p = 0;
     	boolean posExiste = false;
-    	// el numero debe ser válido, debe estar entre 0 y
-    	// tareas.size()-1
+    	// el numero debe ser válido, debe estar entre 1 y
+    	// tareas.size()
     	Scanner sp =new Scanner (System.in);
     	while (!posExiste) {
     		System.out.println("\rPosición a borrar: \r");
     		p = sp.nextInt();
     		if (p >0 && p <= ltareas.size()) {
     			posExiste = true;
-    			ProcesadorTareas.borrarTareaPorPosicion(ltareas,p-1);
+    			
     		}else
     			posExiste = false;
-    		
     	}
+    	// devuelve la posicion dentro del ArrayList
+		return p-1;
 	}
  
 	public static void entradaCrearNuevaTarea(ArrayList<Tarea> ltareas) {

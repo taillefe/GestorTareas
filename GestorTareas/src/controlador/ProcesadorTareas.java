@@ -32,7 +32,7 @@ public class ProcesadorTareas {
 		tar = GestionFicheros.leerFichero(dir);
 		
 
-		System.out.println("Cargadas "+ tar.size()+" tareas");
+		System.out.println("Cargadas "+ tar.size()+" tareas desde fichero");
 		
 		return tar;
 	}
@@ -41,6 +41,7 @@ public class ProcesadorTareas {
 	//devuelve el ArrayList con la tarea añadida
 	public static void crearNuevaTarea(ArrayList<Tarea> tareas,Tarea t){
 		tareas.add(t);
+		System.out.println("Tarea "+ t.getNombre() +" añadida a la lista");
 		
 	}
 
@@ -48,20 +49,30 @@ public class ProcesadorTareas {
 	// se le pasa el ArrayList y devuelve la lista por pantalla
 	public static void listarTareas(ArrayList<Tarea> tareas){
 		
+		System.out.println("\r     LISTA DE TAREAS");
+		System.out.println("--------------------------------");
 		Tarea t = new Tarea();
 		for (int i=0; i<tareas.size(); i++) {
 			int numTarea = i +1; 
-			System.out.println(numTarea +" "+tareas.get(i).getNombre());
+			System.out.println("NUM: "+ numTarea +" "+ "  NOMBRE: "+tareas.get(i).getNombre());
 		}
-
 	
-		
 	}
 	
 	//se le pasa el dato de la posicion de la tarea que se quiere borrar y el ArrayList
-	// y devuelve el ArrayList modificado
-	public static void borrarTareaPorPosicion(ArrayList<Tarea> tareas,int posicion){
-		tareas.remove(posicion);
+	
+	public static void borrarTareaPorPosicion(ArrayList<Tarea> tareas,int pos){
+		tareas.remove(pos);
+	
+	
+	}
+	
+	
+	//se le pasa el dato de la posicion de la tarea que se quiere modificar, 
+	// la tarea modificada  y el ArrayList
+	
+	public static void modificarTareaPorPosicion(ArrayList<Tarea> tareas,int pos,Tarea tar){
+		tareas.set(pos, tar);
 	
 	
 	}
