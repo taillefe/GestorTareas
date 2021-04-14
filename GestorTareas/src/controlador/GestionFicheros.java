@@ -1,5 +1,6 @@
 package controlador;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -7,56 +8,40 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import modelo.Tarea;
-
+/**
+ * 
+ * @author Laura
+ * clase GestionFicheros se encarga de la lectura y escritura
+ * en ficheros de cadenas de caracteres
+ * comprobar si existe el fichero y si no existe crearlo
+ */
 public class GestionFicheros {
 	
 	
-	//Metodo que lee un fichero cuyo path se pasa por parámetro
-	// y devuelve un ArrayList de objetos Tarea
-	//podría devolver un String y procesarlo en el método ProcesarTareas
-	public static ArrayList<Tarea> leerFichero(String path) {
+	//lee un fichero cuyo path se pasa por parámetro
+	// y devuelve un String 
+	public static String leerFichero(String path) {
 		
 		FileReader fr;
 		int dato;
-		ArrayList<Tarea> tareas = new ArrayList<Tarea>();
-		//constructor del objeto tarea
-		Tarea t = new Tarea();
-		
+		char datoCaracter;
+		String cadena ="";
+			
 		try {
 					
 			fr = new FileReader(path);
-			char datoCaracter;
-			String cadena ="";
+			// comprobamos que el fichero existe, si no existe lo 
+			// creamos vacío 
+			
 					
 			while  ((dato = fr.read())!=-1)
 			{
 				datoCaracter =((char)dato);
 				
-			//	System.out.print ( datoCaracter);
-				
-				//marca de separacion de registro ";", o marca de fin de fichero -1
-				if (datoCaracter == ';') {  
-				  // nuevo registro	
-				//	System.out.println ("\nEsta es la cadena : "+ cadena);
-					
-					// añadimos el objeto Tarea al ArrayList
-					
-					t = new Tarea(cadena);
-					tareas.add(t);
-					
-					// se inicializa la variable cadena
-					cadena = "";  
-				}
-				else {
-					cadena = cadena + datoCaracter;
-				}
-			}
-			//si sale por marca fin de fichero -1 hay que leer el ultimo registro
+				cadena = cadena + datoCaracter;
 			
-			// añadimos el objeto Tarea al ArrayList
-			t = new Tarea(cadena);
-			tareas.add(t);
-						
+			}
+			
 			fr.close();
 		}catch (FileNotFoundException ex) {
 			System.out.printf("\n Ha ocurrido un error. No se ha encontrado el fichero:\n%s", ex.getMessage());
@@ -65,7 +50,7 @@ public class GestionFicheros {
 			System.out.printf("\n Ha ocurrido una exceptción indeterminada:\n%s", ex.getMessage());
 			
 		}
-		return tareas;
+		return cadena;
 	
 	} // leerfichero
 	
@@ -87,4 +72,17 @@ public class GestionFicheros {
 		}
 	}// escribirfichero
 
+	//comprobar que el fichero exite, y si no crearlo vacio
+	public static void crearFichero(String path) throws IOException {
+		File f1 = new File (path);
+		if (!f1.exists()) {
+			if (!f1.createNewFile())
+			{
+				System.out.println ("No se ha podido crear el fichro " + path);
+			}
+		}
+		else {
+			System.out.println("El fichero " + path + " ya extiste");
+		}
+	}
 }

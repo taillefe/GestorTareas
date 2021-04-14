@@ -39,27 +39,35 @@ public class ProgramaGestor {
                 switch (opcion) {
                     case 1:
                     	//solicita nueva tarea por pantalla
-                    	 entradaCrearNuevaTarea(tareas);
-                         break;
+                    	System.out.println("\rIntroduce Nueva Tarea: \r");
+                    	Tarea tarCrear = entradaTarea();
+                    	//se añade al final del ArrayList tareas
+                        ProcesadorTareas.crearNuevaTarea(tareas,tarCrear);
+                        break;
                     case 2:
                        ProcesadorTareas.listarTareas(tareas);
                         break;
                     case 3:
                         // solicita posicion de la tarea que se quiere borrar
                     	// devuelve la posicion de la tarea en el ArrayList
+                    	System.out.println("\rIndica num de Tarea a Borrar ");
                     	posBorrar = solicitarPosicion(tareas);
                     	ProcesadorTareas.borrarTareaPorPosicion(tareas,posBorrar);
                     	break;
                     case 4:
                         // solicita posicion de la tarea que se quiere modificar
+                    	System.out.println("\rIndica num de Tarea a Modificar ");
                     	posModificar = solicitarPosicion(tareas);
                     	//solicita entrada del nuevo texto para esa tarea
-                    	Tarea tarea = modificarTarea(posModificar);
-                    	ProcesadorTareas.modificarTareaPorPosicion(tareas,posModificar,tarea);
+                    	int pos = posModificar + 1;
+                    	System.out.println("\rModifica Tarea num: "+pos);
+                    	Tarea tarModificar = entradaTarea();
+                    	ProcesadorTareas.modificarTareaPorPosicion(tareas,posModificar,tarModificar);
                         break;
                     case 5:
                         // guarda las tareas del ArrayList en el fichero
-                    	ProcesadorTareas.guardarTareas(tareas, rutaFichero);;
+                    	ProcesadorTareas.guardarTareas(tareas, rutaFichero);
+                    	
                         break;
                     case 6: //salir
                         salir = true;
@@ -112,7 +120,7 @@ public class ProgramaGestor {
     	// tareas.size()
     	Scanner sp =new Scanner (System.in);
     	while (!posExiste) {
-    		System.out.println("\rPosición a borrar: \r");
+    		
     		p = sp.nextInt();
     		if (p >0 && p <= ltareas.size()) {
     			posExiste = true;
@@ -124,17 +132,13 @@ public class ProgramaGestor {
 		return p-1;
 	}
  
-	public static void entradaCrearNuevaTarea(ArrayList<Tarea> ltareas) {
+	public static Tarea entradaTarea() {
 		 // solicitamos entrada por pantalla de la nueva tarea
 		// se admite cualquier tipo de caracter
   	  	Scanner st =new Scanner (System.in);
-  	  	
-  		System.out.println("\rNueva Tarea: \r");
-  		
   					
   		Tarea t = new Tarea(st.nextLine());
-        //se añade al final del ArrayList tareas
-        ProcesadorTareas.crearNuevaTarea(ltareas,t);
+        return t;
   			
   		
 	}

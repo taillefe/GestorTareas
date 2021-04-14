@@ -16,6 +16,7 @@ import modelo.Tarea;
  *   crearNuevaTarea y añadirla al ArrayList
  *	 listarTareas a partir de un ArrayList
  *	 borrarTareaPorPosicion del ArrayList
+ *   modificarTareaPorPosicion del ArrayList
  *	 guardarTareas en el fichero de texto
  */
 public class ProcesadorTareas {
@@ -24,17 +25,41 @@ public class ProcesadorTareas {
 	// un ArrayList de Tarea con los datos del fichero cargados
 	public static ArrayList<Tarea> cargarTareas(String dir) {
 	
-		ArrayList<Tarea> tar = new ArrayList<Tarea>();
+		ArrayList<Tarea> tars = new ArrayList<Tarea>();
 
-		//  el fichero donde estan los datos
-		File fichero = new File(dir);
+		// el programa leer fichero devuelve el contenido del 
+		// fichero en un String sin procesar
+		String cadenaTareas = GestionFicheros.leerFichero(dir);
 
-		tar = GestionFicheros.leerFichero(dir);
+		//constructor del objeto tarea
+		Tarea tar = new Tarea();
+		String cadenaTarea = "";
+		char datoCaracter;
+
+		for (int i = 0; i < cadenaTareas.length(); i++) {
+				datoCaracter = cadenaTareas.charAt(i);
+				//marca de separacion de registro ";"
+				if (datoCaracter == ';') {  
+				  // nuevo registro	
+					// añadimos el objeto Tarea al ArrayList
+					
+					tar = new Tarea(cadenaTarea);
+					tars.add(tar);
+					
+					// se inicializa la variable cadenaTarea
+					cadenaTarea = "";  
+				}else {
+					cadenaTarea = cadenaTarea + datoCaracter;
+				}
+		}
+		//como no lleva ; al final de la última tarea, 
+		// cuando sale del for hay que procesar  el ultimo registro
+		tar = new Tarea(cadenaTarea);
+		tars.add(tar);
+
+		System.out.println("Cargadas "+ tars.size()+" tareas desde fichero");
 		
-
-		System.out.println("Cargadas "+ tar.size()+" tareas desde fichero");
-		
-		return tar;
+		return tars;
 	}
 	
 	//se le pasa el valor de la nueva tarea y el ArrayList y 
@@ -63,8 +88,8 @@ public class ProcesadorTareas {
 	
 	public static void borrarTareaPorPosicion(ArrayList<Tarea> tareas,int pos){
 		tareas.remove(pos);
-	
-	
+		System.out.println("\rTarea borrada");
+
 	}
 	
 	
@@ -73,8 +98,8 @@ public class ProcesadorTareas {
 	
 	public static void modificarTareaPorPosicion(ArrayList<Tarea> tareas,int pos,Tarea tar){
 		tareas.set(pos, tar);
-	
-	
+		System.out.println("\rTarea modificada");
+
 	}
 	
 	// se le pasa el ArrayList con los datos a guardar y la dirección del fichero
@@ -94,6 +119,7 @@ public class ProcesadorTareas {
 		cadena = cadena.substring(0, cadena.length()-1);
 		
 		GestionFicheros.escribirFichero(cadena, path);
+		System.out.println("\rFichero "+ path + " guardado");
 	
 	}
 	
