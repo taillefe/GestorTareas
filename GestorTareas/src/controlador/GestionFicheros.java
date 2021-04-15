@@ -18,6 +18,20 @@ import modelo.Tarea;
 public class GestionFicheros {
 	
 	
+	//comprobar que el fichero exite, y si no crearlo vacio
+	public static void crearFichero(String path) throws IOException {
+		File f1 = new File (path);
+		if (!f1.exists()) {
+			if (!f1.createNewFile())
+			{
+				System.out.println ("No se ha podido crear el fichro " + path);
+			}
+		}
+		else {
+			System.out.println("El fichero " + path + " ya extiste");
+		}
+	}//crearFichero
+	
 	//lee un fichero cuyo path se pasa por parámetro
 	// y devuelve un String 
 	public static String leerFichero(String path) {
@@ -72,17 +86,5 @@ public class GestionFicheros {
 		}
 	}// escribirfichero
 
-	//comprobar que el fichero exite, y si no crearlo vacio
-	public static void crearFichero(String path) throws IOException {
-		File f1 = new File (path);
-		if (!f1.exists()) {
-			if (!f1.createNewFile())
-			{
-				System.out.println ("No se ha podido crear el fichro " + path);
-			}
-		}
-		else {
-			System.out.println("El fichero " + path + " ya extiste");
-		}
-	}
+
 }

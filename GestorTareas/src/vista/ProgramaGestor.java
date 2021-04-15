@@ -110,6 +110,18 @@ public class ProgramaGestor {
 	    return opcion;
 	}
 	
+	
+	public static Tarea entradaTarea() {
+		 // solicitamos entrada por pantalla de la nueva tarea
+		// se admite cualquier tipo de caracter
+ 	  	Scanner st =new Scanner (System.in);
+ 					
+ 		Tarea t = new Tarea(st.nextLine());
+       return t;
+ 	
+	}
+
+	
 	//solicita posicion de la tarea y devuelve el numero del indice de la tarea
 	// en el ArrayList de Tareas
 	public static int solicitarPosicion(ArrayList<Tarea> ltareas) {
@@ -132,14 +144,4 @@ public class ProgramaGestor {
 		return p-1;
 	}
  
-	public static Tarea entradaTarea() {
-		 // solicitamos entrada por pantalla de la nueva tarea
-		// se admite cualquier tipo de caracter
-  	  	Scanner st =new Scanner (System.in);
-  					
-  		Tarea t = new Tarea(st.nextLine());
-        return t;
-  			
-  		
-	}
 }
