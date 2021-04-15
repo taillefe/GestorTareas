@@ -17,7 +17,7 @@ public class ProgramaGestor {
 	public static void main(String[] args) {
 		
 
-		int posModificar;
+		int posModificar; 
 		int posBorrar;
 		//Ruta del fichero
 		String rutaFichero=".//Fichero//data.txt";
