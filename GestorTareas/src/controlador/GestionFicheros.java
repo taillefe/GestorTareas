@@ -17,6 +17,9 @@ import modelo.Tarea;
  */
 public class GestionFicheros {
 	
+	//Ruta del fichero
+		public static final String RUTA_FICHERO =".//Fichero//data.txt";
+	
 	
 	//comprobar que el fichero exite, y si no crearlo vacio
 	public static void crearFichero(String path) throws IOException {
@@ -24,7 +27,7 @@ public class GestionFicheros {
 		if (!f1.exists()) {
 			if (!f1.createNewFile())
 			{
-				System.out.println ("No se ha podido crear el fichro " + path);
+			System.out.println ("No se ha podido crear el fichero " + path);
 			}
 		}
 		else {
