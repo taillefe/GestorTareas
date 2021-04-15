@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import modelo.Tarea;
 
@@ -57,7 +58,7 @@ public class ProcesadorTareas {
 		tar = new Tarea(cadenaTarea);
 		tars.add(tar);
 
-		System.out.println("Cargadas "+ tars.size()+" tareas desde fichero");
+		System.out.println("Cargadas "+ tars.size()+" tareas");
 		
 		return tars;
 	}
@@ -87,8 +88,28 @@ public class ProcesadorTareas {
 	//se le pasa el dato de la posicion de la tarea que se quiere borrar y el ArrayList
 	
 	public static void borrarTareaPorPosicion(ArrayList<Tarea> tareas,int pos){
-		tareas.remove(pos);
-		System.out.println("\rTarea borrada");
+		
+		boolean salir = false;
+		System.out.println("Está seguro de que desea borrar la tarea : "+ tareas.get(pos).getNombre()
+				+ " (S/N)" );
+		while (!salir) {
+			Scanner sn =new Scanner (System.in);
+			String respuesta = sn.nextLine();
+			
+			if (respuesta.equals("s") || respuesta.equals("S")) {
+				salir = true;
+				tareas.remove(pos);
+				System.out.println("\rTarea borrada");
+			}else if  (respuesta.equals("n") || respuesta.equals("N")) {
+				salir = true;
+				System.out.println("\rLa Tarea no se ha borrado");
+			}else {
+				System.out.println("La respuesta debe ser S o N\r");
+				salir = false;
+				
+			}	
+		}
+		
 
 	}
 	

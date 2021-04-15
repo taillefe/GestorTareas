@@ -26,8 +26,7 @@ public class VistaTareas  {
 		opcionesMenu();
 		  //opcion del usuario
 	    while (!salir) {
-	    	
-	    	
+  	
 	    	try {
 	       	 
 	            //System.out.println("Escoge una opción");
@@ -66,21 +65,21 @@ public class VistaTareas  {
 	                	Tarea tarModificar = entradaTarea();
 	                	ProcesadorTareas.modificarTareaPorPosicion(tareas,posModificar,tarModificar);
 	                    break;
-	                case 5:
-	                    // guarda las tareas del ArrayList en el fichero
-	                	ProcesadorTareas.guardarTareas(tareas, GestionFicheros.RUTA_FICHERO);
-	                	
-	                    break;
-	                case 6: //salir
+	               
+	                case 5: //salir
 	                    salir = true;
 	                    break;
 	                case 0:
 	                	opcionesMenu();
 	                	break;
 	                default:
-	                    System.out.println("Solo números entre 0 y 6");
+	                    System.out.println("Solo números entre 0 y 5");
 	            }
+	            
 	    }
+	    // guarda automaticamente las tareas del ArrayList en el fichero
+	    // cuando el usuario sale de la aplicacion
+    	ProcesadorTareas.guardarTareas(tareas, GestionFicheros.RUTA_FICHERO);
         
     }
 
@@ -99,9 +98,8 @@ public static void opcionesMenu() {
     System.out.println	("2. Listar Tareas");
     System.out.println	("3. Borrar Tarea por posición");
     System.out.println	("4. Modificar Tarea por posición");
-    System.out.println	("5. Guardar Tareas en el fichero");
-    System.out.println	("6. Salir");
-    System.out.println("===============================\r");
+    System.out.println	("5. Salir");
+    System.out.println("===============================");
     System.out.println("Pulsa 0 para volver a ver el menu");
 }
 
