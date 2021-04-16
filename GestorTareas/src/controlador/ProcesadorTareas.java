@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import modelo.Tarea;
 
 /**
@@ -22,18 +21,15 @@ import modelo.Tarea;
  */
 public class ProcesadorTareas {
 	
-	// se le pasa la dirección del fichero de texto y devuelve 
-	// un ArrayList de Tarea con los datos del fichero cargados
-	public static ArrayList<Tarea> cargarTareas(String dir) {
-	
-		ArrayList<Tarea> tars = new ArrayList<Tarea>();
-
+		// se le pasa la dirección del fichero de texto y devuelve 
+		// un ArrayList de Tarea con los datos del fichero cargados
+		public static ArrayList<Tarea> cargarTareas(String dir) {
+		
 		// el programa leer fichero devuelve el contenido del 
 		// fichero en un String sin procesar
 		String cadenaTareas = GestionFicheros.leerFichero(dir);
-
-		//constructor del objeto tarea
-		Tarea tar = new Tarea();
+	
+		ArrayList<Tarea> tars = new ArrayList<Tarea>();
 		String cadenaTarea = "";
 		char datoCaracter;
 
@@ -43,10 +39,8 @@ public class ProcesadorTareas {
 				if (datoCaracter == ';') {  
 				  // nuevo registro	
 					// añadimos el objeto Tarea al ArrayList
-					
-					tar = new Tarea(cadenaTarea);
-					tars.add(tar);
-					
+					añadirTarea(cadenaTarea,tars);
+										
 					// se inicializa la variable cadenaTarea
 					cadenaTarea = "";  
 				}else {
@@ -55,12 +49,24 @@ public class ProcesadorTareas {
 		}
 		//como no lleva ; al final de la última tarea, 
 		// cuando sale del for hay que procesar  el ultimo registro
-		tar = new Tarea(cadenaTarea);
-		tars.add(tar);
+		añadirTarea(cadenaTarea,tars);
 
 		System.out.println("Cargadas "+ tars.size()+" tareas");
 		
 		return tars;
+	}
+	
+	//añadimos el objeto Tarea a la lista
+	// separando cada uno de sus atributos
+	public static void añadirTarea(String s, ArrayList<Tarea> tars) {
+		
+		//cada atributo está separado por un "-"
+		// se obtienen los datos de los atributos
+		String [] cortarCadena = s.split("-"); 
+		
+		//constructor del objeto Tarea, añado los atributos
+		Tarea tar = new Tarea(Integer.parseInt(cortarCadena[0]), cortarCadena[1]);
+		tars.add(tar);
 	}
 	
 	//se le pasa el valor de la nueva tarea y el ArrayList y 
@@ -132,7 +138,7 @@ public class ProcesadorTareas {
 		//se recorre el ArrayList para obtener un String con los datos
 		// separados por ";"
 		for(Tarea t:tareas) {
-			cadena = cadena + t.getNombre() + ";" ;
+			cadena = cadena + t.getId() + "-" + t.getNombre() + ";" ;
 		}
 		
 		//antes de guardar los datos en el fichero hay que eliminar 

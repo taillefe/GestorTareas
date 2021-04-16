@@ -1,1 +1,1 @@
-primera tarea;sacar al perro;sacar al gato;la ultima tarea
+1-primera tarea;3-regar plantas;5-el fin;6-sacar perro

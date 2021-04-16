@@ -21,7 +21,7 @@ public class VistaTareas  {
 		//menu de la aplicación con las opciones
 		boolean salir = false;
 		int opcion = 0;
-	 	Scanner sn = new Scanner(System.in);
+		Scanner sn = new Scanner(System.in);
 	
 		opcionesMenu();
 		  //opcion del usuario
@@ -41,16 +41,21 @@ public class VistaTareas  {
 	                case 1:
 	                	//solicita nueva tarea por pantalla
 	                	System.out.println("\rIntroduce Nueva Tarea: \r");
-	                	Tarea tarCrear = entradaTarea();
+	                	
+	                	//pasamos como parametro el id automaticamente
+	                	// leemos el id de la ultima tarea y le sumamos 1
+	                	int  ultimoId = tareas.get(tareas.size()-1).getId();
+	                	Tarea tarCrear = entradaTarea(ultimoId + 1);
+	                	
 	                	//se añade al final del ArrayList tareas
 	                    ProcesadorTareas.crearNuevaTarea(tareas,tarCrear);
 	                    break;
-	                case 2:
+	                case 2: //lista las tareas en memoria
 	                   ProcesadorTareas.listarTareas(tareas);
 	                    break;
 	                case 3:
 	                    // solicita posicion de la tarea que se quiere borrar
-	                	// devuelve la posicion de la tarea en el ArrayList
+	                	// devuelve el valor del id de la Tarea
 	                	System.out.println("\rIndica num de Tarea a Borrar ");
 	                	posBorrar = solicitarPosicion(tareas);
 	                	ProcesadorTareas.borrarTareaPorPosicion(tareas,posBorrar);
@@ -59,10 +64,15 @@ public class VistaTareas  {
 	                    // solicita posicion de la tarea que se quiere modificar
 	                	System.out.println("\rIndica num de Tarea a Modificar ");
 	                	posModificar = solicitarPosicion(tareas);
+	                	
 	                	//solicita entrada del nuevo texto para esa tarea
 	                	int pos = posModificar + 1;
-	                	System.out.println("\rModifica Tarea num: "+pos);
-	                	Tarea tarModificar = entradaTarea();
+	                	System.out.println("\rModifica Tarea num: "+ pos);
+	                	
+	                	// pasamos como parametro el id interno de la tarea
+	                	// que vamos a modificar para que este no se modifique
+	                	int id = tareas.get(posModificar).getId();
+	                	Tarea tarModificar = entradaTarea(id);
 	                	ProcesadorTareas.modificarTareaPorPosicion(tareas,posModificar,tarModificar);
 	                    break;
 	               
@@ -84,12 +94,7 @@ public class VistaTareas  {
     }
 
 
-
-
 public static void opcionesMenu() {
-
-	
-   
    
     System.out.println("\r===============================");
 	System.out.println("       GESTOR DE TAREAS");
@@ -104,12 +109,14 @@ public static void opcionesMenu() {
 }
 
 
-public static Tarea entradaTarea() {
+public static Tarea entradaTarea(int id) {
 	 // solicitamos entrada por pantalla de la nueva tarea
 	// se admite cualquier tipo de caracter
 	  	Scanner st =new Scanner (System.in);
-					
-		Tarea t = new Tarea(st.nextLine());
+	  	
+		// como id se le pasa el siguiente libre automaticamente
+	  	// se ha pasado por parametro
+		Tarea t = new Tarea(id, st.nextLine());
    return t;
 	
 }
@@ -122,7 +129,12 @@ public static int solicitarPosicion(ArrayList<Tarea> ltareas) {
 	int p = 0;
 	boolean posExiste = false;
 	// el numero debe ser válido, debe estar entre 1 y
-	// tareas.size()
+	// el mayor id de Tarea
+	// calculo del mayor id de las tareas guardadas
+	// debe ser el ultimo porque siempre están ordenadas
+	// id de la ultima posicion del ArrayList
+//	int mayorId = ltareas.get(ltareas.size()-1).getId();
+//	System.out.println("mayorId : "+ mayorId);
 	Scanner sp =new Scanner (System.in);
 	while (!posExiste) {
 		
@@ -130,8 +142,10 @@ public static int solicitarPosicion(ArrayList<Tarea> ltareas) {
 		if (p >0 && p <= ltareas.size()) {
 			posExiste = true;
 			
-		}else
+		}else {
 			posExiste = false;
+			System.out.println("introducir posicion correcta");
+		}
 	}
 	// devuelve la posicion dentro del ArrayList
 	return p-1;
